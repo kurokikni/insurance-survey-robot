@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<sdf version="1.8"><world name="factory_inspection">
+  <gravity>0 0 -9.81</gravity>
+  <physics name="physics" type="ignored"><max_step_size>0.01</max_step_size><real_time_factor>1</real_time_factor></physics>
+  <plugin filename="libignition-gazebo-physics-system.so" name="ignition::gazebo::systems::Physics"/>
+  <plugin filename="libignition-gazebo-user-commands-system.so" name="ignition::gazebo::systems::UserCommands"/>
+  <plugin filename="libignition-gazebo-scene-broadcaster-system.so" name="ignition::gazebo::systems::SceneBroadcaster"/>
+  <light name="sun" type="directional"><pose>0 0 6 0 0 0</pose><diffuse>0.9 0.9 0.9 1</diffuse><specular>0.1 0.1 0.1 1</specular><direction>-0.4 -0.4 -1</direction></light>
+
+<model name="factory_floor"><static>true</static><pose>0.75 0.75 -0.06 0 0 0</pose>
+      <link name="body"><collision name="collision"><geometry><box><size>5.5 5.5 0.12</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.5 5.5 0.12</size></box></geometry>
+      <material><ambient>0.75 0.78 0.79 1</ambient><diffuse>0.75 0.78 0.79 1</diffuse></material></visual></link></model>
+<!-- Green: A power supply. Blue: B drainage pump. Red: D electrical panel. -->
+<model name="A_power_green"><static>true</static><pose>1.5 -0.65 0.3 0 0 0</pose>
+      <link name="body"><collision name="collision"><geometry><box><size>0.45 0.45 0.6</size></box></geometry></collision><visual name="visual"><geometry><box><size>0.45 0.45 0.6</size></box></geometry>
+      <material><ambient>0.15 0.7 0.25 1</ambient><diffuse>0.15 0.7 0.25 1</diffuse></material></visual></link></model>
+<model name="B_pump_blue"><static>true</static><pose>2.16 1.5 0.3 0 0 0</pose>
+      <link name="body"><collision name="collision"><geometry><box><size>0.45 0.45 0.6</size></box></geometry></collision><visual name="visual"><geometry><box><size>0.45 0.45 0.6</size></box></geometry>
+      <material><ambient>0.1 0.4 0.9 1</ambient><diffuse>0.1 0.4 0.9 1</diffuse></material></visual></link></model>
+<model name="D_electrical_red"><static>true</static><pose>-0.7 1.5 0.3 0 0 0</pose>
+      <link name="body"><collision name="collision"><geometry><box><size>0.45 0.45 0.6</size></box></geometry></collision><visual name="visual"><geometry><box><size>0.45 0.45 0.6</size></box></geometry>
+      <material><ambient>0.9 0.25 0.2 1</ambient><diffuse>0.9 0.25 0.2 1</diffuse></material></visual></link></model>
+<model name="flood_visual_only"><static>true</static><pose>1.5 1.5 0.008 0 0 0</pose>
+      <link name="body"><visual name="visual"><geometry><box><size>0.8 0.8 0.015</size></box></geometry>
+      <material><ambient>0.25 0.72 0.96 0.8</ambient><diffuse>0.25 0.72 0.96 0.8</diffuse></material></visual></link></model>
+<!-- Blue floor patch near D (red electrical panel): visual-only flood marker.
+     No collision or physical water simulation. Corresponds to mock flood readings. -->
+<model name="flood_visual_D"><static>true</static><pose>-0.65 1.5 0.008 0 0 0</pose>
+      <link name="body"><visual name="visual"><geometry><box><size>1.05 0.95 0.015</size></box></geometry>
+      <material><ambient>0.25 0.72 0.96 0.8</ambient><diffuse>0.25 0.72 0.96 0.8</diffuse></material></visual></link></model>
+<model name="HOME_mark"><static>true</static><pose>0 0 0.009 0 0 0</pose>
+      <link name="body"><visual name="visual"><geometry><box><size>0.55 0.55 0.015</size></box></geometry>
+      <material><ambient>0.2 0.68 0.52 1</ambient><diffuse>0.2 0.68 0.52 1</diffuse></material></visual></link></model>
+<!-- Educational three-wheel differential-drive robot. -->
+    <model name="insurance_robot"><pose>0 0 0.13 0 0 0</pose>
+      <link name="base_link"><pose>0 0 0.11 0 0 0</pose>
+        <inertial><mass>5</mass><inertia><ixx>0.03</ixx><iyy>0.03</iyy><izz>0.03</izz></inertia></inertial>
+        <collision name="body_collision"><geometry><box><size>0.45 0.32 0.16</size></box></geometry></collision>
+        <visual name="body_visual"><geometry><box><size>0.45 0.32 0.16</size></box></geometry>
+          <material><ambient>0.17 0.28 0.52 1</ambient><diffuse>0.17 0.28 0.52 1</diffuse></material></visual>
+      </link>
+      <link name="left_wheel"><pose>0 0.18 0 0 0 0</pose>
+        <inertial><mass>0.6</mass><inertia><ixx>0.03</ixx><iyy>0.03</iyy><izz>0.03</izz></inertia></inertial>
+        <collision name="wheel_collision"><pose>0 0 0 1.5707963 0 0</pose><geometry><cylinder><radius>0.12</radius><length>0.06</length></cylinder></geometry></collision>
+        <visual name="wheel_visual"><pose>0 0 0 1.5707963 0 0</pose><geometry><cylinder><radius>0.12</radius><length>0.06</length></cylinder></geometry>
+          <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material></visual>
+      </link>
+      <link name="right_wheel"><pose>0 -0.18 0 0 0 0</pose>
+        <inertial><mass>0.6</mass><inertia><ixx>0.03</ixx><iyy>0.03</iyy><izz>0.03</izz></inertia></inertial>
+        <collision name="wheel_collision"><pose>0 0 0 1.5707963 0 0</pose><geometry><cylinder><radius>0.12</radius><length>0.06</length></cylinder></geometry></collision>
+        <visual name="wheel_visual"><pose>0 0 0 1.5707963 0 0</pose><geometry><cylinder><radius>0.12</radius><length>0.06</length></cylinder></geometry>
+          <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material></visual>
+      </link>
+      <link name="caster"><pose>-0.18 0 -0.045 0 0 0</pose>
+        <inertial><mass>0.2</mass><inertia><ixx>0.03</ixx><iyy>0.03</iyy><izz>0.03</izz></inertia></inertial>
+        <collision name="caster_collision"><geometry><sphere><radius>0.075</radius></sphere></geometry></collision>
+        <visual name="caster_visual"><geometry><sphere><radius>0.075</radius></sphere></geometry></visual>
+      </link>
+      <joint name="left_wheel_joint" type="revolute"><parent>base_link</parent><child>left_wheel</child>
+        <axis><xyz>0 1 0</xyz><limit><lower>-1000000</lower><upper>1000000</upper><effort>1000000</effort></limit></axis></joint>
+      <joint name="right_wheel_joint" type="revolute"><parent>base_link</parent><child>right_wheel</child>
+        <axis><xyz>0 1 0</xyz><limit><lower>-1000000</lower><upper>1000000</upper><effort>1000000</effort></limit></axis></joint>
+      <joint name="caster_joint" type="ball"><parent>base_link</parent><child>caster</child></joint>
+<plugin filename="libignition-gazebo-diff-drive-system.so" name="ignition::gazebo::systems::DiffDrive">
+        <left_joint>left_wheel_joint</left_joint><right_joint>right_wheel_joint</right_joint>
+        <wheel_separation>0.36</wheel_separation><wheel_radius>0.12</wheel_radius>
+        <topic>/cmd_vel</topic><odom_topic>/wheel_odom</odom_topic>
+        <odom_publish_frequency>20</odom_publish_frequency>
+        <frame_id>odom</frame_id><child_frame_id>base_link</child_frame_id>
+      </plugin>
+      <!-- Actual simulation body pose, not wheel-integrated odometry.
+           Publish it to /odom for the existing ROS 2 bridge. -->
+      <plugin filename="libignition-gazebo-odometry-publisher-system.so"
+              name="ignition::gazebo::systems::OdometryPublisher">
+        <odom_topic>/odom</odom_topic>
+        <odom_publish_frequency>20</odom_publish_frequency>
+        <dimensions>2</dimensions>
+      </plugin>
+    </model></world></sdf>
